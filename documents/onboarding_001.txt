@@ -1,0 +1,23 @@
+New Hire Onboarding Checklist - Week 1
+
+Welcome to the team! Your first week will include:
+
+Day 1:
+- Meet your manager and team (9:00 AM)
+- IT Setup: Receive your laptop and login credentials
+- Complete HR paperwork (benefits, tax forms)
+
+Day 2:
+- Training: Company history and values
+- Set up your development environment (for technical roles)
+- Review your first project brief
+
+Day 3:
+- Training: Internal tools overview (Slack, Jira, Google Workspace)
+- One-on-one with your manager to set goals
+
+Day 4-5:
+- Begin working on your first assigned tasks.
+- Schedule coffee chats with your team members.
+
+Your main point of contact is your assigned onboarding buddy, Sarah Lee (sarah.lee@acme-corp.com).

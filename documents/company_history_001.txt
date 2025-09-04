@@ -1,0 +1,9 @@
+The History of Acme Corp
+
+Founded in 2010 by engineers Alice Williams and Bob Johnson, Acme Corp started in a small garage with a mission to simplify technology for everyday life.
+
+Our first product, the "AutoButton," was a simple smart home controller. While not a major commercial success, it established our reputation for build quality.
+
+The breakthrough came in 2015 with the launch of the original SynthoGizmo, a health and fitness tracker that garnered critical acclaim for its accurate sensors and long battery life.
+
+Today, headquartered in San Francisco, Acme Corp employs over 500 people and continues to innovate in the consumer electronics and software space, staying true to its founding principle: "Tech, Simplified."

@@ -1,0 +1,19 @@
+Support Ticket #ST-7842
+
+Status: Resolved
+Product: SynthoGizmo X200
+Customer: Jane Smith
+Date: 2023-10-25
+
+Issue Description:
+Customer reported that the device will not charge. The screen remains blank when connected to the provided USB-C cable.
+
+Troubleshooting Steps:
+1. Asked customer to try a different USB power adapter. - No change.
+2. Asked customer to inspect the charging port for debris. - Port was clear.
+3. Guided customer through a hard reset (hold power button for 15 seconds). - No change.
+
+Resolution:
+The issue was determined to be a faulty charging cable. A replacement cable was shipped to the customer via expedited mail. Customer confirmed the new cable resolved the issue.
+
+Technician: Michael Chen

@@ -1,0 +1,23 @@
+Acme API Documentation - /user Endpoint
+
+Base URL: https://api.acme-corp.com/v1
+
+GET /user/{user_id}
+Retrieves a specific user's profile information.
+
+Parameters:
+- user_id (path parameter, integer, required): The unique ID of the user.
+
+Response:
+A JSON object with the following structure:
+{
+  "id": 12345,
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "department": "Engineering",
+  "active": true
+}
+
+Error Codes:
+- 404 Not Found: Returned if no user exists with the provided ID.
+- 500 Internal Server Error: An unexpected error occurred on the server.

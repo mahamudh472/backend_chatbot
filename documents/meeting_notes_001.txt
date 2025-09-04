@@ -1,0 +1,17 @@
+Project Alpha Kickoff Meeting
+
+Date: October 26, 2023
+Attendees: Alice, Bob, Charlie
+
+Key Discussion Points:
+- Finalized the project timeline. The goal is to launch the first phase by Q2 2024.
+- Bob will be responsible for backend development using Python and FastAPI.
+- Alice will handle all UI/UX design and initial user research sessions.
+- Charlie was tasked with investigating cloud hosting options, specifically comparing AWS and Google Cloud.
+
+Action Items:
+- Alice: Create initial design wireframes by next week.
+- Bob: Set up the project repository on GitHub and CI/CD pipeline.
+- Charlie: Prepare a cost and feature comparison sheet for the cloud providers.
+
+Next meeting: Thursday, November 2nd, 10:00 AM EST.

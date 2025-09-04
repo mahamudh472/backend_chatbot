@@ -1,0 +1,15 @@
+SynthoGizmo X200 - Technical Specifications
+
+The SynthoGizmo X200 is our flagship wearable device.
+
+Connectivity: Bluetooth 5.2, Wi-Fi 802.11ac
+Battery: 450mAh Lithium-Polymer battery. Charging time: 2 hours. Usage time: up to 24 hours.
+Sensors: Accelerometer, Gyroscope, Heart Rate Monitor, SpO2 sensor.
+Display: 1.3 inch AMOLED touchscreen.
+Compatibility: iOS 14+ and Android 10+.
+Materials: Aerospace-grade aluminum casing with a silicone strap.
+
+In the Box:
+- 1x SynthoGizmo X200 device
+- 1x Magnetic USB-C charging cable
+- 1x Quick Start Guide

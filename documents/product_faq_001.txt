@@ -1,0 +1,13 @@
+FAQ for Product "SynthoGizmo"
+
+Q: How do I charge the SynthoGizmo?
+A: Use the provided magnetic USB-C cable. A full charge takes approximately 2 hours and provides up to 24 hours of use.
+
+Q: What is the warranty period for the SynthoGizmo?
+A: The device comes with a standard 12-month limited warranty against manufacturing defects.
+
+Q: Is the SynthoGizmo water-resistant?
+A: Yes, it has an IP67 rating, meaning it can withstand immersion in 1 meter of water for up to 30 minutes. Do not use it in saltwater.
+
+Q: How do I pair it with my phone?
+A: Hold the main power button for 3 seconds until the blue LED light flashes rapidly. Then, select "SynthoGizmo X200" from your phone's Bluetooth menu.

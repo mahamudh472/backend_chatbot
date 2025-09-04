@@ -1,0 +1,19 @@
+Project Alpha - Weekly Sync
+
+Date: November 2, 2023
+Attendees: Alice, Bob, Charlie, David (new intern)
+
+Updates:
+- Alice: Presented initial UI wireframes. The team approved the dashboard design. Moving to high-fidelity mockups.
+- Bob: GitHub repo is set up with CI/CD. Basic API structure for user management is complete.
+- Charlie: Cloud analysis complete. Recommends AWS for better scalability and existing corporate discounts. Budget request prepared.
+
+Blockers:
+- Bob: Waiting on final database schema from Alice to proceed with full development.
+
+New Action Items:
+- Alice: Finalize database schema by EOD Friday.
+- David: Help Charlie compile the AWS cost documentation.
+- All: Review the project timeline and confirm milestones are still achievable.
+
+Next sync: Same time next week.
