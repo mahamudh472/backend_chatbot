@@ -79,7 +79,6 @@ I built this Django REST Framework-based backend service as a comprehensive AI c
    EMAIL_HOST_PASSWORD=your_app_password
    ```
 
-   ```
 
    **API Key Priority**: The system uses Google Gemini as the primary provider and automatically falls back to OpenAI if Gemini is unavailable.
 
