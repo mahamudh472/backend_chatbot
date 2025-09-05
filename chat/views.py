@@ -9,12 +9,50 @@ from rest_framework import status
 from django.conf import settings
 from .vectorstore import VectorStore
 import os
+import sys
 from .ai_client import ai_client
 
-vector_store = VectorStore()
-docs_folder = os.path.join(settings.BASE_DIR, 'documents')
+# Global variable to store the vector store instance
+_vector_store = None
 
-vector_store.load_from_folder(docs_folder)
+def get_vector_store():
+    """
+    Lazy-load the vector store only when needed and only for server operations.
+    This prevents loading during management commands like migrate, makemigrations, etc.
+    """
+    global _vector_store
+    
+    # Check if we're in a management command context that shouldn't load vectorstore
+    if len(sys.argv) > 1:
+        command = sys.argv[1]
+        # Commands that should NOT load vectorstore
+        skip_commands = [
+            'migrate', 'makemigrations', 'collectstatic', 'check', 
+            'shell', 'createsuperuser', 'check_ai_status', 'showmigrations',
+            'sqlmigrate', 'dbshell', 'inspectdb', 'flush', 'loaddata',
+            'dumpdata', 'diffsettings', 'testserver'
+        ]
+        
+        if command in skip_commands:
+            return None
+    
+    if _vector_store is None:
+        _vector_store = VectorStore()
+        docs_folder = os.path.join(settings.BASE_DIR, 'documents')
+        print("Loading vector store from documents folder...")
+        _vector_store.load_from_folder(docs_folder)
+        print("Vector store loaded successfully!")
+    
+    return _vector_store
+
+
+def initialize_vector_store():
+    """
+    Initialize the vector store. This is called during app startup for runserver.
+    """
+    global _vector_store
+    if _vector_store is None:
+        get_vector_store()  # This will load it if appropriate
 
 
 
@@ -32,6 +70,11 @@ class ChatMessageCreateView(APIView):
         message = request.data.get('message')
         if not message:
             return Response({"error": "Message content is required"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Get vector store instance
+        vector_store = get_vector_store()
+        if vector_store is None:
+            return Response({"error": "Vector store not available"}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
         
         # Search for relevant chunks (increased to 4 for better context)
         docs = vector_store.search(message, top_k=4)
@@ -73,6 +116,10 @@ class VectorStoreStatsView(APIView):
     permission_classes = [IsAuthenticated]
     
     def get(self, request):
+        vector_store = get_vector_store()
+        if vector_store is None:
+            return Response({"error": "Vector store not available"}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        
         stats = vector_store.get_stats()
         return Response(stats, status=status.HTTP_200_OK)
 
