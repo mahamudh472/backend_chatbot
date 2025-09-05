@@ -46,7 +46,7 @@ I built this Django REST Framework-based backend service as a comprehensive AI c
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/mahamudh472/backend_chatbot.git
    cd backend_chatbot
    ```
 
