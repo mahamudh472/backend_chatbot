@@ -20,11 +20,6 @@ def send_verification_emails():
     """
     print("Sending verification emails to users... (functionality not implemented)")
 
-def testing_job():
-    """
-    A simple testing job to demonstrate scheduler functionality.
-    """
-    print("Testing job executed.")
 
 def start():
     scheduler = BackgroundScheduler()
@@ -36,13 +31,6 @@ def start():
         'interval',
         days=1,
         id='cleanup_old_messages',
-        replace_existing=True
-    )
-    scheduler.add_job(
-        testing_job,
-        'interval',
-        minutes=1,
-        id='testing_job',
         replace_existing=True
     )
 

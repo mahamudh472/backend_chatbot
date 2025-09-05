@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.core.mail import send_mail
 
 
 class SignupView(APIView):
@@ -19,7 +20,26 @@ class SignupView(APIView):
         
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
-        return Response({"message": "User signed up successfully"})
+
+        try:
+            send_mail(
+            subject='Verify your email',
+            message='Thank you for signing up. Please verify your email address.',
+            from_email='no-reply@example.com',
+            recipient_list=[user.email],
+            fail_silently=False,
+            )
+        except Exception as e:
+            # Log the error but don't fail the signup
+            print(f"Email sending failed: {e}")
+        return Response({
+            "success": True,
+            "message": "User signed up successfully",
+            "user": {
+                "username": user.username,
+                "email": user.email,
+            }
+        }, status=status.HTTP_201_CREATED)
 
 class LoginView(APIView):
     def post(self, request):

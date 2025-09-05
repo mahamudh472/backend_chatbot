@@ -21,7 +21,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from chat.views import MessageListView, ChatMessageCreateView
+from chat.views import MessageListView, ChatMessageCreateView, VectorStoreStatsView, AIProviderStatusView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,5 +36,7 @@ urlpatterns = [
 
     path('chat-history/', MessageListView.as_view(), name='chat_messages'),
     path('chat/', ChatMessageCreateView.as_view(), name='chat_message_create'),
+    path('vectorstore/stats/', VectorStoreStatsView.as_view(), name='vectorstore_stats'),
+    path('ai/status/', AIProviderStatusView.as_view(), name='ai_provider_status'),
 
 ]

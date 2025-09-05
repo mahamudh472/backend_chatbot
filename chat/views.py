@@ -6,36 +6,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from openai import OpenAI
 from django.conf import settings
 from .vectorstore import VectorStore
 import os
-from .gemini_client import chat_with_context
+from .ai_client import ai_client
 
 vector_store = VectorStore()
 docs_folder = os.path.join(settings.BASE_DIR, 'documents')
 
 vector_store.load_from_folder(docs_folder)
-
-# Correct OpenRouter base URL
-client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key=settings.OPENROUTER_API_KEY,
-)
-
-def ask_ai(prompt: str, model: str = "mistralai/mistral-7b-instruct") -> str:
-    """
-    Send a prompt to OpenRouter and get the response.
-    """
-    response = client.chat.completions.create(
-        model=model,
-        messages=[
-            {"role": "system", "content": "You are a helpful AI assistant."},
-            {"role": "user", "content": prompt},
-        ],
-    )
-    return response.choices[0].message.content
-
 
 
 
@@ -48,27 +27,60 @@ class MessageListView(ListAPIView):
 
 
 class ChatMessageCreateView(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
         message = request.data.get('message')
         if not message:
             return Response({"error": "Message content is required"}, status=status.HTTP_400_BAD_REQUEST)
-        docs = vector_store.search(message, top_k=2)
-        context = "\n".join([doc['text'] for doc in docs])
-        response = chat_with_context(message, context)
+        
+        # Search for relevant chunks (increased to 4 for better context)
+        docs = vector_store.search(message, top_k=4)
+        
+        # Create context from chunks with metadata
+        context_parts = []
+        for doc in docs:
+            metadata = doc.get('metadata', {})
+            filename = metadata.get('filename', 'Unknown')
+            chunk_info = f"(from {filename}"
+            if 'chunk_index' in metadata and 'total_chunks' in metadata:
+                chunk_info += f", part {metadata['chunk_index'] + 1}/{metadata['total_chunks']}"
+            chunk_info += ")"
+            
+            context_parts.append(f"{chunk_info}:\n{doc['text']}")
+        
+        context = "\n\n---\n\n".join(context_parts)
+        
+        response = ai_client.chat_with_context(message, context)
+        active_provider = ai_client.get_active_provider()
+        
+        data = {
+            'message': message,
+            'response': response,
+            'user': request.user.id
+        }
+        serializer = ChatMessageSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response({
+                "response": response,
+                "provider": active_provider
+            }, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        print("User Message:", message)
-        print("Context Retrieved:", context)
-        print("AI Response:", response)
-        # data ={
-        #     'message': message,
-        #     'response': "This is a static response.",
-        #     'user': request.user.id
-        # }
-        # serializer = ChatMessageSerializer(data=data)
-        # response = ask_ai(message)
-        # print("AI Response:", response)
-        # if serializer.is_valid():
-        #     serializer.save(user=request.user)
-        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response({"response": response}, status=status.HTTP_200_OK)
+
+class VectorStoreStatsView(APIView):
+    """Get statistics about the vector store."""
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        stats = vector_store.get_stats()
+        return Response(stats, status=status.HTTP_200_OK)
+
+
+class AIProviderStatusView(APIView):
+    """Get status information about available AI providers."""
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        status_info = ai_client.get_provider_status()
+        return Response(status_info, status=status.HTTP_200_OK)
