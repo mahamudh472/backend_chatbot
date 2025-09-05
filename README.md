@@ -183,6 +183,9 @@ backend_chatbot/
 
 ## 📚 API Documentation
 
+- Import `postman/backend_chatbot.postman_collection` into Postman.
+- Use the environment file for `access_token` and `refresh_token`.
+
 ### Base URL
 ```
 http://127.0.0.1:8000/
